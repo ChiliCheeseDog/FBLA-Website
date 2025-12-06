@@ -8,4 +8,6 @@
 
 3. Test out the functionality of the website and use the admin key for backend features.
 
+# (if it dosen't work, try the following link): https://chilicheesedog.github.io/FBLA-Website/
+
 ### Admin key: FBLA2025
