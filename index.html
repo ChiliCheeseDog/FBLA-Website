@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Campus Lost & Found</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="dark-theme">
+  <!-- Top navigation -->
+  <header class="navbar" id="mainNavbar">
+    <div class="nav-inner">
+      <div class="nav-left">
+        <img src="logo.png" alt="School Logo" class="logo-img" />
+        <div class="logo-text">
+          <span class="logo-main">Campus Lost &amp; Found</span>
+          <span class="logo-sub">Helping our community reconnect with belongings</span>
+        </div>
+      </div>
+      <nav class="nav-right">
+        <a href="#home" class="nav-link glass-btn">Home</a>
+        <a href="#submit" class="nav-link glass-btn">Report Item</a>
+        <a href="#browse" class="nav-link glass-btn">Browse Items</a>
+        <a href="#claim" class="nav-link glass-btn">Claim Item</a>
+        <a href="#admin" class="nav-link glass-btn">Admin</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero / Home section -->
+  <section id="home" class="hero-section">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1 class="hero-title">Find What’s Lost.</h1>
+      <p class="hero-subtitle">
+        A central place for students and staff to report, search, and reclaim lost items on campus.
+      </p>
+      <div class="hero-actions">
+        <a href="#submit" class="primary-btn glass-btn">Report a Found Item</a>
+        <a href="#browse" class="secondary-btn glass-btn">Search Found Items</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-card">
+          <span class="stat-number" id="statTotal">0</span>
+          <span class="stat-label">Items in system</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number" id="statPending">0</span>
+          <span class="stat-label">Awaiting approval</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number" id="statClaimed">0</span>
+          <span class="stat-label">Marked as claimed</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main>
+    <!-- Submit Found Item -->
+    <section id="submit" class="content-section">
+      <div class="section-header">
+        <h2 class="section-title">Report a Found Item</h2>
+        <p class="section-subtitle">
+          Tell the community what you found so it can make its way back to the right person.
+        </p>
+      </div>
+
+      <div class="card-grid">
+        <div class="glass-card">
+          <form id="foundForm" class="form-grid">
+            <div class="form-group">
+              <label for="foundTitle">Item name / title</label>
+              <input type="text" id="foundTitle" required placeholder="e.g., Black backpack with math textbook" />
+            </div>
+
+            <div class="form-group">
+              <label for="foundCategory">Category</label>
+              <select id="foundCategory" required>
+                <option value="">Select category</option>
+                <option>Backpack / Bag</option>
+                <option>Electronics</option>
+                <option>Clothing</option>
+                <option>Books / Notebooks</option>
+                <option>Stationery</option>
+                <option>Keys / ID</option>
+                <option>Other</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="foundLocation">Where did you find it?</label>
+              <input type="text" id="foundLocation" required placeholder="e.g., Library second floor near printers" />
+            </div>
+
+            <div class="form-group">
+              <label for="foundDate">Date found</label>
+              <input type="date" id="foundDate" required />
+            </div>
+
+            <div class="form-group full-width">
+              <label for="foundDescription">Description</label>
+              <textarea id="foundDescription" rows="3" required placeholder="Color, brand, any distinguishing features…"></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="foundFinderName">Your name</label>
+              <input type="text" id="foundFinderName" required placeholder="First and last name" />
+            </div>
+
+            <div class="form-group">
+              <label for="foundContact">Contact (email or phone)</label>
+              <input type="text" id="foundContact" required placeholder="School email preferred" />
+            </div>
+
+            <div class="form-group full-width">
+              <label for="foundPhoto">Item photo</label>
+              <!-- User will upload photo; we store base64 locally -->
+              <!-- You can style this input and note max size if needed -->
+              <input type="file" id="foundPhoto" accept="image/*" />
+              <small class="helper-text">Optional but highly recommended. Clear photos help owners identify items.</small>
+            </div>
+
+            <div class="form-actions full-width">
+              <button type="submit" class="primary-btn glass-btn">Submit for Review</button>
+              <p class="helper-text">
+                Submissions are reviewed by staff before appearing in the public list.
+              </p>
+            </div>
+
+            <p id="foundMessage" class="form-message"></p>
+          </form>
+        </div>
+
+        <div class="glass-card info-card">
+          <h3>Tips for Accurate Reports</h3>
+          <ul class="info-list">
+            <li>Include specific details: color, brand, unique marks, stickers, or labels.</li>
+            <li>Avoid sharing sensitive information (like student ID numbers) publicly.</li>
+            <li>Drop the item at your school’s official lost-and-found location after submitting.</li>
+            <li>Check the “Browse Items” section periodically to see what’s already posted.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Browse Items -->
+    <section id="browse" class="content-section">
+      <div class="section-header">
+        <h2 class="section-title">Browse Found Items</h2>
+        <p class="section-subtitle">
+          Use filters to quickly search items that match what you lost.
+        </p>
+      </div>
+
+      <div class="glass-card">
+        <div class="filters-grid">
+          <div class="form-group">
+            <label for="searchQuery">Search by keyword</label>
+            <input type="text" id="searchQuery" placeholder="e.g., calculator, hoodie, AirPods" />
+          </div>
+          <div class="form-group">
+            <label for="filterCategory">Category</label>
+            <select id="filterCategory">
+              <option value="">All categories</option>
+              <option>Backpack / Bag</option>
+              <option>Electronics</option>
+              <option>Clothing</option>
+              <option>Books / Notebooks</option>
+              <option>Stationery</option>
+              <option>Keys / ID</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="filterStatus">Status</label>
+            <select id="filterStatus">
+              <option value="approved">Only available</option>
+              <option value="all">All (including claimed)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="filterSort">Sort by</label>
+            <select id="filterSort">
+              <option value="newest">Newest first</option>
+              <option value="oldest">Oldest first</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="itemsGrid" class="items-grid">
+          <!-- Cards are injected here by script.js -->
+        </div>
+
+        <p id="browseEmptyMessage" class="helper-text empty-message">
+          No items match your filters yet. Try adjusting your search or check back later.
+        </p>
+      </div>
+    </section>
+
+    <!-- Claim / Inquiry Form -->
+    <section id="claim" class="content-section">
+      <div class="section-header">
+        <h2 class="section-title">Claim or Ask About an Item</h2>
+        <p class="section-subtitle">
+          Provide details so staff can verify ownership and respond with next steps.
+        </p>
+      </div>
+
+      <div class="card-grid">
+        <div class="glass-card">
+          <form id="claimForm" class="form-grid">
+            <div class="form-group">
+              <label for="claimItemId">Item ID (from item card)</label>
+              <input type="text" id="claimItemId" required placeholder="e.g., LF-1023" />
+            </div>
+
+            <div class="form-group">
+              <label for="claimName">Your full name</label>
+              <input type="text" id="claimName" required />
+            </div>
+
+            <div class="form-group">
+              <label for="claimEmail">School email</label>
+              <input type="email" id="claimEmail" required />
+            </div>
+
+            <div class="form-group">
+              <label for="claimRelation">Role</label>
+              <select id="claimRelation" required>
+                <option value="">Select one</option>
+                <option>Student</option>
+                <option>Teacher</option>
+                <option>Staff</option>
+                <option>Visitor</option>
+              </select>
+            </div>
+
+            <div class="form-group full-width">
+              <label for="claimDetails">Describe your item & proof of ownership</label>
+              <textarea id="claimDetails" rows="3" required placeholder="Unique marks, when/where you lost it, etc."></textarea>
+            </div>
+
+            <div class="form-group full-width">
+              <label for="claimPreferred">Preferred contact method</label>
+              <input type="text" id="claimPreferred" placeholder="e.g., Email, phone (if allowed)" />
+            </div>
+
+            <div class="form-actions full-width">
+              <button type="submit" class="primary-btn glass-btn">Submit Claim Request</button>
+            </div>
+
+            <p id="claimMessage" class="form-message"></p>
+          </form>
+        </div>
+
+        <div class="glass-card info-card">
+          <h3>What Happens Next?</h3>
+          <ol class="info-list numbered">
+            <li>Staff review your request and compare your description with the item details.</li>
+            <li>If it looks like a match, you receive instructions on where and when to pick it up.</li>
+            <li>You may be asked to show ID or answer verification questions in person.</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- Admin / Basic backend view -->
+    <section id="admin" class="content-section">
+      <div class="section-header">
+        <h2 class="section-title">Admin Review Panel</h2>
+        <p class="section-subtitle">
+          Review, approve, or mark items as claimed. This panel is for staff use only.
+        </p>
+      </div>
+
+      <div class="glass-card">
+        <div class="admin-auth">
+          <label for="adminPass">Admin access key</label>
+          <input type="password" id="adminPass" placeholder="Enter staff key to unlock controls" />
+          <button id="adminUnlockBtn" class="secondary-btn glass-btn">Unlock Panel</button>
+          <p id="adminAuthMessage" class="helper-text"></p>
+        </div>
+
+        <div id="adminPanel" class="admin-panel locked">
+          <p class="helper-text">
+            Once unlocked, you can approve pending items or update their status.
+          </p>
+
+          <div class="admin-tabs">
+            <button class="admin-tab-btn active" data-tab="pending">Pending</button>
+            <button class="admin-tab-btn" data-tab="approved">Approved</button>
+            <button class="admin-tab-btn" data-tab="claimed">Claimed</button>
+          </div>
+
+          <div class="admin-lists">
+            <div id="adminPending" class="admin-list active"></div>
+            <div id="adminApproved" class="admin-list"></div>
+            <div id="adminClaimed" class="admin-list"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <span>&copy; <span id="year"></span> Campus Lost &amp; Found</span>
+      <span class="footer-divider">•</span>
+      <span>Designed for our school community</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
