@@ -445,8 +445,6 @@ main {
   transform: scale(1.06);
 }
 
-/* Replace placeholder image for items if you want a branded default illustration */
-
 .item-chip {
   position: absolute;
   top: 0.6rem;
